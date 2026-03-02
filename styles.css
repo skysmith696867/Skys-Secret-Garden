@@ -198,3 +198,247 @@ input:focus, select:focus{
 
 .match-meta h3{ margin: 0 0 8px; }
 .chips{ display:flex; gap: 8
+:root{
+  --bg: #050508;
+  --ink: #ffffff;
+  --muted: rgba(255,255,255,.72);
+  --glow: 0 0 18px rgba(255,255,255,.22);
+  --glow-strong: 0 0 34px rgba(255,255,255,.35);
+}
+
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  overflow: hidden;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+/* =========================================================
+   ✨ CARTOON SPARKLE STARS (4-point + 8-point glow doodles)
+   ========================================================= */
+
+.sparkles{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1000px 700px at 50% -10%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(900px 600px at 10% 40%, rgba(255,255,255,.05), transparent 65%),
+    radial-gradient(900px 600px at 90% 60%, rgba(255,255,255,.04), transparent 65%),
+    var(--bg);
+}
+
+/* two repeating layers of "drawn" sparkle stars */
+.sparkles::before,
+.sparkles::after{
+  content:"";
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,.22));
+}
+
+/* Layer A (bigger sparkles) */
+.sparkles::before{
+  background-size: 240px 240px;
+  opacity: .85;
+  background-image:
+    /* 8-point sparkle (made by conic gradients) */
+    conic-gradient(from 0deg at 40px 60px,
+      transparent 0 40deg, rgba(255,255,255,.95) 40deg 50deg,
+      transparent 50deg 130deg, rgba(255,255,255,.9) 130deg 140deg,
+      transparent 140deg 220deg, rgba(255,255,255,.95) 220deg 230deg,
+      transparent 230deg 310deg, rgba(255,255,255,.9) 310deg 320deg,
+      transparent 320deg 360deg),
+    conic-gradient(from 0deg at 170px 150px,
+      transparent 0 42deg, rgba(255,255,255,.92) 42deg 52deg,
+      transparent 52deg 132deg, rgba(255,255,255,.85) 132deg 142deg,
+      transparent 142deg 222deg, rgba(255,255,255,.92) 222deg 232deg,
+      transparent 232deg 312deg, rgba(255,255,255,.85) 312deg 322deg,
+      transparent 322deg 360deg),
+    /* small plus-sparkle */
+    linear-gradient(transparent 0 0);
+  animation: twinkleA 4.2s ease-in-out infinite alternate;
+}
+
+/* Layer B (more, smaller sparkles, offset) */
+.sparkles::after{
+  background-size: 200px 200px;
+  opacity: .65;
+  background-image:
+    conic-gradient(from 0deg at 80px 120px,
+      transparent 0 43deg, rgba(255,255,255,.85) 43deg 50deg,
+      transparent 50deg 133deg, rgba(255,255,255,.8) 133deg 140deg,
+      transparent 140deg 223deg, rgba(255,255,255,.85) 223deg 230deg,
+      transparent 230deg 313deg, rgba(255,255,255,.8) 313deg 320deg,
+      transparent 320deg 360deg),
+    conic-gradient(from 0deg at 150px 50px,
+      transparent 0 43deg, rgba(255,255,255,.82) 43deg 50deg,
+      transparent 50deg 133deg, rgba(255,255,255,.76) 133deg 140deg,
+      transparent 140deg 223deg, rgba(255,255,255,.82) 223deg 230deg,
+      transparent 230deg 313deg, rgba(255,255,255,.76) 313deg 320deg,
+      transparent 320deg 360deg);
+  animation: twinkleB 6.5s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes twinkleA{
+  0%{ opacity: .55; transform: scale(1); filter: drop-shadow(0 0 6px rgba(255,255,255,.18)); }
+  100%{ opacity: 1; transform: scale(1.01); filter: drop-shadow(0 0 16px rgba(255,255,255,.30)); }
+}
+@keyframes twinkleB{
+  0%{ opacity: .35; transform: translateY(0px); filter: drop-shadow(0 0 5px rgba(255,255,255,.14)); }
+  100%{ opacity: .8; transform: translateY(2px); filter: drop-shadow(0 0 14px rgba(255,255,255,.26)); }
+}
+
+/* =========================================================
+   🖼 DECOR PNG LAYERS
+   ========================================================= */
+
+.decor{
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: .95;
+  filter: drop-shadow(0 0 14px rgba(255,255,255,.08));
+}
+
+/* Top branch */
+.vine-top{
+  top: -10px;
+  left: 0;
+  width: 100vw;
+  height: 220px;
+  background-position: top center;
+  opacity: .92;
+  background-image: url("assets/tree-branch-of-secrets.png");
+}
+
+/* Left climbing vine */
+.vine-left{
+  top: 0;
+  left: -14px;
+  width: 230px;
+  height: 100vh;
+  background-position: left top;
+  opacity: .85;
+  background-image: url("assets/vine-climbing-sky.png");
+}
+
+/* Lantern right */
+.lantern{
+  top: 90px;
+  right: 52px;
+  width: 160px;
+  height: 260px;
+  background-position: center;
+  opacity: .98;
+  filter:
+    drop-shadow(0 0 18px rgba(255,255,255,.12))
+    drop-shadow(0 0 40px rgba(255,230,170,.10));
+  transform-origin: top center;
+  animation: sway 6s ease-in-out infinite alternate;
+  background-image: url("assets/chandelier-lights-the-sky.png");
+}
+
+@keyframes sway{
+  0%{ transform: rotate(-1.1deg) translateY(0px); }
+  100%{ transform: rotate(1.1deg) translateY(2px); }
+}
+
+/* Column bottom-left */
+.column{
+  bottom: -10px;
+  left: 26px;
+  width: 170px;
+  height: 360px;
+  background-position: bottom left;
+  opacity: .9;
+  background-image: url("assets/column-viney.png");
+}
+
+/* Fountain bottom-center */
+.fountain{
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(440px, 92vw);
+  height: 270px;
+  background-position: bottom center;
+  opacity: .96;
+  background-image: url("assets/fountaainnn.png");
+}
+
+/* =========================================================
+   ✨ TITLE / HERO UI
+   ========================================================= */
+
+.hero{
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 22px 18px;
+}
+
+.hero-inner{
+  max-width: 720px;
+  padding: 18px 16px 20px;
+  border-radius: 18px;
+  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 0 60px rgba(255,255,255,.06);
+  backdrop-filter: blur(4px);
+}
+
+.title{
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: .4px;
+  font-size: clamp(40px, 7vw, 74px);
+  text-shadow: var(--glow-strong);
+}
+
+.subtitle{
+  margin: 12px 0 22px;
+  color: var(--muted);
+  font-style: italic;
+  font-size: clamp(14px, 2.6vw, 18px);
+  text-shadow: var(--glow);
+}
+
+.enter-btn{
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: .2px;
+  box-shadow: var(--glow);
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.enter-btn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.10);
+  box-shadow: 0 0 28px rgba(255,255,255,.28);
+}
+
+/* Mobile tweaks */
+@media (max-width: 520px){
+  .lantern{ right: 16px; width: 130px; height: 220px; top: 110px; }
+  .vine-left{ width: 185px; }
+  .column{ left: 10px; width: 140px; height: 320px; }
+  .vine-top{ height: 190px; }
+  .hero-inner{ padding: 16px 14px 18px; }
+}
