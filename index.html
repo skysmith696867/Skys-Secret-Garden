@@ -1,1 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sky’s Secret Garden</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="vines-title" aria-label="Sky’s Secret Garden">
+      <h1><span>Sky’s Secret Garden</span></h1>
+      <p class="tagline">find ur destiny if ur brave enough</p>
+    </div>
 
+    <div class="toolbar">
+      <button id="audioBtn" class="btn ghost" type="button" aria-pressed="false">
+        🔊 birds: off
+      </button>
+      <button id="rerollBtn" class="btn ghost" type="button">
+        🔁 reroll
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2 class="card-title">Enter the garden</h2>
+
+      <div class="grid">
+        <label class="field">
+          <span>Your name (optional)</span>
+          <input id="nameInput" type="text" placeholder="type name…" maxlength="24" />
+        </label>
+
+        <label class="field">
+          <span>Your archetype</span>
+          <select id="youSelect"></select>
+        </label>
+
+        <label class="field">
+          <span>You’re drawn to</span>
+          <select id="likeSelect"></select>
+        </label>
+      </div>
+
+      <button id="matchBtn" class="btn primary" type="button">
+        🔐 unlock your match
+      </button>
+
+      <p class="hint">
+        Tip: the garden changes depending on who you unlock.
+      </p>
+    </section>
+
+    <section id="result" class="result hidden" aria-live="polite">
+      <div class="match-card">
+        <div class="match-top">
+          <div class="portrait" id="portrait" role="img" aria-label="Character portrait"></div>
+
+          <div class="match-meta">
+            <h3 id="matchName">—</h3>
+            <div class="chips">
+              <span class="chip" id="matchArch">—</span>
+              <span class="chip" id="matchScore">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-body">
+          <p id="matchDesc" class="desc">—</p>
+
+          <div class="divider"></div>
+
+          <div class="mini-grid">
+            <div class="stat">
+              <div class="stat-k">Key</div>
+              <div class="stat-v" id="matchKey">—</div>
+            </div>
+            <div class="stat">
+              <div class="stat-k">Vibe</div>
+              <div class="stat-v" id="matchVibe">—</div>
+            </div>
+            <div class="stat">
+              <div class="stat-k">Danger</div>
+              <div class="stat-v" id="matchDanger">—</div>
+            </div>
+          </div>
+
+          <button id="shareBtn" class="btn" type="button">📜 copy result</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="flowerbed" aria-hidden="true">
+      <span class="flower f1"></span>
+      <span class="flower f2"></span>
+      <span class="flower f3"></span>
+      <span class="flower f4"></span>
+      <span class="flower f5"></span>
+    </div>
+    <small>© Sky’s Secret Garden</small>
+  </footer>
+
+  <!-- Optional: add your own bird audio file at assets/birds.mp3 -->
+  <audio id="birdsAudio" loop preload="auto">
+    <source src="assets/birds.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
